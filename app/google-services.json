@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "423061208011",
+    "firebase_url": "https://tokto-michael.firebaseio.com",
+    "project_id": "tokto-michael",
+    "storage_bucket": "tokto-michael.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:423061208011:android:20baa89495a63029",
+        "android_client_info": {
+          "package_name": "io.agora.openacall"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "423061208011-avj7hg6qiljv4ab8915b3l92ct396i9l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.agora.openacall",
+            "certificate_hash": "6c35b2161468b27582f7d6da2fb24fabaf7442d6"
+          }
+        },
+        {
+          "client_id": "423061208011-nsk9rns2aeprrva4bf33m0ihfpgj1bc6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAN_sp-1-9KlvoEr2aO6Tvl2ZeunRzvGFI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "423061208011-nsk9rns2aeprrva4bf33m0ihfpgj1bc6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
