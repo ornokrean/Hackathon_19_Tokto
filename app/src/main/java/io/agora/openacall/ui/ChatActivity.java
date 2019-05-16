@@ -1,7 +1,7 @@
 package io.agora.openacall.ui;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.PorterDuff;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,11 +10,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,17 +23,34 @@ import io.agora.rtc.IRtcEngineEventHandler;
 import io.agora.rtc.RtcEngine;
 
 public class ChatActivity extends BaseActivity implements AGEventHandler {
-
+    private OnSwipeTouchListener swipeListener;
     private final static Logger log = LoggerFactory.getLogger(ChatActivity.class);
 
     private volatile boolean mAudioMuted = false;
 
     private volatile int mAudioRouting = -1; // Default
+    private RelativeLayout swipeLayout;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+        swipeLayout = (RelativeLayout) findViewById(R.id.swipe_layout);
+        swipeLayout.setOnTouchListener(new OnSwipeTouchListener(getApplicationContext()){
+            @Override
+            public void onSwipeUp(){
+                quitCall();
+                Intent mainActivity = new Intent(ChatActivity.this, MainActivity.class);
+                startActivity(mainActivity);
+            }
+            @Override
+            public void onDoubleClick(){
+                Toast.makeText(getApplicationContext(),"tttt",Toast.LENGTH_LONG).show();
+            }
+        });
+
+
     }
 
     @Override
@@ -58,22 +72,18 @@ public class ChatActivity extends BaseActivity implements AGEventHandler {
         String channelName = i.getStringExtra(ConstantApp.ACTION_KEY_CHANNEL_NAME);
 
         worker().joinChannel(channelName, config().mUid);
-
-        TextView textChannelName = (TextView) findViewById(R.id.channel_name);
-        textChannelName.setText(channelName);
+        turnSpeaker();
 
         optional();
 
-        LinearLayout bottomContainer = (LinearLayout) findViewById(R.id.bottom_container);
-        FrameLayout.MarginLayoutParams fmp = (FrameLayout.MarginLayoutParams) bottomContainer.getLayoutParams();
-        fmp.bottomMargin = virtualKeyHeight() + 16;
+
     }
 
     private Handler mMainHandler;
 
     private static final int UPDATE_UI_MESSAGE = 0x1024;
 
-    EditText mMessageList;
+//    EditText mMessageList;
 
     StringBuffer mMessageCache = new StringBuffer();
 
@@ -103,9 +113,9 @@ public class ChatActivity extends BaseActivity implements AGEventHandler {
 
                             switch (msg.what) {
                                 case UPDATE_UI_MESSAGE:
-                                    String content = (String) (msg.obj);
-                                    mMessageList.setText(content);
-                                    mMessageList.setSelection(content.length());
+//                                    String content = (String) (msg.obj);
+//                                    mMessageList.setText(content);
+//                                    mMessageList.setSelection(content.length());
                                     break;
 
                                 default:
@@ -115,16 +125,23 @@ public class ChatActivity extends BaseActivity implements AGEventHandler {
                         }
                     };
 
-                    mMessageList = (EditText) findViewById(R.id.msg_list);
                 }
 
                 mMainHandler.removeMessages(UPDATE_UI_MESSAGE);
                 Message envelop = new Message();
                 envelop.what = UPDATE_UI_MESSAGE;
                 envelop.obj = mMessageCache.toString();
-                mMainHandler.sendMessageDelayed(envelop, 1000l);
+                mMainHandler.sendMessageDelayed(envelop, 1000);
             }
         });
+    }
+
+    /**
+     * turn speaker on . (nitzan).
+     */
+    private void turnSpeaker() {
+        RtcEngine rtcEngine = rtcEngine();
+        rtcEngine.setEnableSpeakerphone(mAudioRouting != 3);
     }
 
     private void optional() {
@@ -137,12 +154,13 @@ public class ChatActivity extends BaseActivity implements AGEventHandler {
     private void optionalDestroy() {
     }
 
-    public void onSwitchSpeakerClicked(View view) {
-        log.info("onSwitchSpeakerClicked " + view + " " + mAudioMuted + " " + mAudioRouting);
+//    public void onSwitchSpeakerClicked(View view) {
+//        log.info("onSwitchSpeakerClicked " + view + " " + mAudioMuted + " " + mAudioRouting);
+//
+//        RtcEngine rtcEngine = rtcEngine();
+//        rtcEngine.setEnableSpeakerphone(mAudioRouting != 3);
+//    }
 
-        RtcEngine rtcEngine = rtcEngine();
-        rtcEngine.setEnableSpeakerphone(mAudioRouting != 3);
-    }
 
     @Override
     protected void deInitUIandEvent() {
@@ -178,20 +196,20 @@ public class ChatActivity extends BaseActivity implements AGEventHandler {
         finish();
     }
 
-    public void onVoiceMuteClicked(View view) {
-        log.info("onVoiceMuteClicked " + view + " audio_status: " + mAudioMuted);
-
-        RtcEngine rtcEngine = rtcEngine();
-        rtcEngine.muteLocalAudioStream(mAudioMuted = !mAudioMuted);
-
-        ImageView iv = (ImageView) view;
-
-        if (mAudioMuted) {
-            iv.setColorFilter(getResources().getColor(R.color.agora_blue), PorterDuff.Mode.MULTIPLY);
-        } else {
-            iv.clearColorFilter();
-        }
-    }
+//    public void onVoiceMuteClicked(View view) {
+//        log.info("onVoiceMuteClicked " + view + " audio_status: " + mAudioMuted);
+//
+//        RtcEngine rtcEngine = rtcEngine();
+//        rtcEngine.muteLocalAudioStream(mAudioMuted = !mAudioMuted);
+//
+//        ImageView iv = (ImageView) view;
+//
+//        if (mAudioMuted) {
+//            iv.setColorFilter(getResources().getColor(R.color.agora_blue), PorterDuff.Mode.MULTIPLY);
+//        } else {
+//            iv.clearColorFilter();
+//        }
+//    }
 
     @Override
     public void onJoinChannelSuccess(String channel, final int uid, int elapsed) {
@@ -309,23 +327,24 @@ public class ChatActivity extends BaseActivity implements AGEventHandler {
             }
 
             case AGEventHandler.EVENT_TYPE_ON_AUDIO_ROUTE_CHANGED: {
-                notifyHeadsetPlugged((int) data[0]);
+//                notifyHeadsetPlugged((int) data[0]);
 
                 break;
             }
         }
     }
 
-    public void notifyHeadsetPlugged(final int routing) {
-        log.info("notifyHeadsetPlugged " + routing);
 
-        mAudioRouting = routing;
-
-        ImageView iv = (ImageView) findViewById(R.id.switch_speaker_id);
-        if (mAudioRouting == 3) { // Speakerphone
-            iv.setColorFilter(getResources().getColor(R.color.agora_blue), PorterDuff.Mode.MULTIPLY);
-        } else {
-            iv.clearColorFilter();
-        }
-    }
+//    public void notifyHeadsetPlugged(final int routing) {
+//        log.info("notifyHeadsetPlugged " + routing);
+//
+//        mAudioRouting = routing;
+//
+////        ImageView iv = (ImageView) findViewById(R.id.switch_speaker_id);
+//        if (mAudioRouting == 3) { // Speakerphone
+//            iv.setColorFilter(getResources().getColor(R.color.agora_blue), PorterDuff.Mode.MULTIPLY);
+//        } else {
+//            iv.clearColorFilter();
+//        }
+//    }
 }
