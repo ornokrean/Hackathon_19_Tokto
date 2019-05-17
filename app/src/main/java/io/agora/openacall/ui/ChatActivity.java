@@ -16,6 +16,7 @@ import android.widget.Toast;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import io.agora.openacall.MenuActivity;
 import io.agora.openacall.R;
 import io.agora.openacall.model.AGEventHandler;
 import io.agora.openacall.model.ConstantApp;
@@ -41,7 +42,7 @@ public class ChatActivity extends BaseActivity implements AGEventHandler {
             @Override
             public void onSwipeUp(){
                 quitCall();
-                Intent mainActivity = new Intent(ChatActivity.this, MainActivity.class);
+                Intent mainActivity = new Intent(ChatActivity.this, MenuActivity.class);
                 startActivity(mainActivity);
             }
             @Override

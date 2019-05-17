@@ -1,16 +1,166 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context=".NewUserActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="This is new user \n activity "
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        tools:layout_editor_absoluteX="123dp"
-        tools:layout_editor_absoluteY="337dp" />
-</android.support.constraint.ConstraintLayout>
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/ardestine"
+                android:text="@string/ageString"
+                android:textSize="@dimen/label_font_size" />
+
+            <Spinner
+                android:id="@+id/ageSpinner"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:entries="@array/ages"
+                android:fontFamily="@font/ardestine"
+                android:prompt="@string/enterAge"
+                android:textSize="@dimen/label_font_size" />
+
+        </LinearLayout>
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/maleButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:onClick="toggleMaleFemale"
+                android:scaleType="centerInside"
+                android:src="@drawable/male_off" />
+
+            <ImageButton
+                android:id="@+id/femaleButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:onClick="toggleMaleFemale"
+                android:scaleType="centerInside"
+                android:src="@drawable/female_on"
+                android:text="@string/female" />
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ardestine"
+            android:text="@string/fields_of_interest"
+            android:textSize="@dimen/label_font_size" />
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TableRow>
+
+                <ToggleButton
+                    android:id="@+id/topic_sport"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:checked="false"
+                    android:textOff="@string/Sport"
+                    android:textOn="@string/Sport" />
+
+                <ToggleButton
+                    android:id="@+id/topic_music"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:textOff="@string/Music"
+                    android:textOn="@string/Music" />
+
+                <ToggleButton
+                    android:id="@+id/topic_"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:textOff="@string/Literature"
+                    android:textOn="@string/Literature" />
+            </TableRow>
+
+            <TableRow>
+
+                <ToggleButton
+                    android:id="@+id/topic4"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:textOff="@string/DIY"
+                    android:textOn="@string/DIY" />
+
+                <ToggleButton
+                    android:id="@+id/topic5"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:textOff="@string/History"
+                    android:textOn="@string/History" />
+
+                <ToggleButton
+                    android:id="@+id/topic6"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:textOff="@string/Culture"
+                    android:textOn="@string/Culture" />
+            </TableRow>
+
+            <TableRow>
+
+                <ToggleButton
+                    android:id="@+id/topic7"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:textOff="@string/Movies"
+                    android:textOn="@string/Movies" />
+
+                <ToggleButton
+                    android:id="@+id/topic8"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:textOff="@string/Series"
+                    android:textOn="@string/Series" />
+
+                <ToggleButton
+                    android:id="@+id/topic9"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:textOff="@string/Clothes"
+                    android:textOn="@string/Clothes" />
+            </TableRow>
+
+        </TableLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/loginSubmit" />
+    </LinearLayout>
+
+</ScrollView>

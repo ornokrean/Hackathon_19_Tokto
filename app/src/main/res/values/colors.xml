@@ -3,8 +3,8 @@
     <color name="agora_blue">#FF00A0EB</color>
 
     <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimaryDark">#3f2c4b</color>
+    <color name="colorAccent">#3f2c4b</color>
 
     <color name="lightColorAccent">#30FF4081</color>
 
@@ -13,4 +13,11 @@
     <color name="transparent_75_white">#ACFFFFFF</color>
 
     <color name="dark_gray">#FF55585A</color>
+
+
+    <color name="background">#443850</color>
+    <color name="foreground">#78bb96</color>
+    <color name="inactive">#3f2c4b</color>
+    <color name="yellow">#cfbe64</color>
+
 </resources>

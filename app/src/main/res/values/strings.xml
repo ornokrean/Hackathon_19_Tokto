@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <resources>
-    <string name="app_name">Open Voice Call</string>
+    <string name="app_name">SocioDrive</string>
 
     <string name="msg_welcome_message">Welcome to Open Voice Call!</string>
 
@@ -16,4 +16,36 @@
     <string name="enterEmail">Enter e-mail:</string>
     <string name="enterPassword">Enter password:</string>
     <string name="loginSubmit">Submit</string>
+    <string name="ageString">Age :</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="enterAge">Enter age</string>
+    <string name="fields_of_interest">Fields of interest</string>
+    <string name="Sport">Sports</string>
+    <string name="Music">Music</string>
+    <string name="Literature">Literature</string>
+    <string name="DIY">DIY</string>
+    <string name="History">History</string>
+    <string name="Culture">Culture</string>
+    <string name="Movies">Movies</string>
+    <string name="Series">Series</string>
+    <string name="Clothes">Clothes</string>
+    <string name="Work">Work</string>
+    <string name="Code">Code</string>
+    <string name="News">News</string>
+    <string name="Politics">Politics</string>
+    <string name="Religion">Religion</string>
+    <string name="Art">Art</string>
+    <string name="Tech">Tech</string>
+    <string name="Academy">Academy</string>
+
+    <string-array name="ages" max="99" min="16">
+        <item>16–25</item>
+        <item>26–35</item>
+        <item>36–45</item>
+        <item>46–55</item>
+        <item>56–65</item>
+        <item>66–75</item>
+        <item>76+</item>
+    </string-array>
 </resources>
