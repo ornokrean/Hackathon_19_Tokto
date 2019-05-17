@@ -191,7 +191,7 @@ public class ChatActivity extends BaseActivity implements AGEventHandler {
     }
 
     private void quitCall() {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, MenuActivity.class); //todo change here.
         startActivity(intent);
 
         finish();
