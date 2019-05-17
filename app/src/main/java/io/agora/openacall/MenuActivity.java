@@ -47,7 +47,5 @@ public class MenuActivity extends AppCompatActivity {
                 startActivity(k);
                 break;
         }
-        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
     }
-
 }

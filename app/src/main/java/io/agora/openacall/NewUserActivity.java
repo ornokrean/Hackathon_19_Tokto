@@ -74,7 +74,7 @@ public class NewUserActivity extends AppCompatActivity {
             ImageButton TB = findViewById(getResources().getIdentifier("topic_" + buttonName, "id", name));
             String topic = TB.getTag().toString();
             try {
-                profile.put("\""+topic+"\"", isChecked ? 1 : 0);
+                profile.put(topic, isChecked ? 1 : 0);
             } catch (JSONException e) {
                 Log.d("JSONException", "topic:" + topic + " - " + e.getMessage());
             }
@@ -83,7 +83,7 @@ public class NewUserActivity extends AppCompatActivity {
         String age = ((Spinner) findViewById(R.id.ageSpinner)).getSelectedItem().toString();
 
         try {
-            data.put("\"profile\"", profile);
+            data.put("profile", profile);
         } catch (JSONException e) {
             Log.d("JSONException", "id - " + e.getMessage());
         }
