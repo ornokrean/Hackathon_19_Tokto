@@ -37,7 +37,7 @@ public class Login extends AppCompatActivity {
     static String TAG = "LOGIN";
     private FirebaseAuth mAuth;
     private static String baseURL = "http://172.29.110.231:5005/";
-    private static String getID = "get_id";
+    private static String create_user = "create_user";
     private boolean isFlaskNewUser;
 
 
@@ -48,12 +48,11 @@ public class Login extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
     }
 
-    public boolean createFlaskUser(FirebaseUser user) {
+    public static boolean serverCreate(String content){
         HttpURLConnection urlConnection;
         URL url;
-        String content = "{" + user.getUid() + ":{\"mail\":\"" + user.getEmail() + "\"}}";
         try {
-            url = new URL(baseURL + getID);
+            url = new URL(baseURL + create_user);
             urlConnection = (HttpURLConnection) url.openConnection();
             try {
                 urlConnection.setDoOutput(true);
@@ -74,8 +73,7 @@ public class Login extends AppCompatActivity {
                 StringBuffer text = new StringBuffer();
                 for (String line; (line = br.readLine()) != null; )
                     text.append(line);
-                isFlaskNewUser = text.equals("1");
-                return isFlaskNewUser;
+                return text.toString().equals("1");
 //                Toast.makeText(getApplicationContext(), loadedText, Toast.LENGTH_LONG).show();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -87,6 +85,13 @@ public class Login extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return false;
+    }
+
+    public boolean createFlaskUser(FirebaseUser user) {
+        String content = "{\"" + user.getUid() + "\":{\"mail\":\"" + user.getEmail() + "\"}}";
+        System.out.println(content);
+        isFlaskNewUser = serverCreate(content);
         return false;
     }
 

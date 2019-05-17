@@ -25,6 +25,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/ardestine"
+                android:tag="sport"
                 android:text="@string/ageString"
                 android:textSize="@dimen/label_font_size" />
 
@@ -36,6 +37,7 @@
                 android:entries="@array/ages"
                 android:fontFamily="@font/ardestine"
                 android:prompt="@string/enterAge"
+                android:tag="sport"
                 android:textSize="@dimen/label_font_size" />
 
         </LinearLayout>
@@ -84,83 +86,113 @@
 
             <TableRow>
 
-                <ToggleButton
+                <ImageButton
                     android:id="@+id/topic_sport"
                     android:layout_width="0dp"
                     android:layout_weight="1"
+                    android:background="#00000000"
                     android:checked="false"
-                    android:textOff="@string/Sport"
-                    android:textOn="@string/Sport" />
+                    android:onClick="toggleTopic"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/sport_off"
+                    android:tag="sport" />
 
-                <ToggleButton
+                <ImageButton
                     android:id="@+id/topic_music"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:textOff="@string/Music"
-                    android:textOn="@string/Music" />
+                    android:background="#00000000"
+                    android:onClick="toggleTopic"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/music_off"
+                    android:tag="music" />
 
-                <ToggleButton
-                    android:id="@+id/topic_"
+                <ImageButton
+                    android:id="@+id/topic_movies"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:textOff="@string/Literature"
-                    android:textOn="@string/Literature" />
+                    android:background="#00000000"
+                    android:onClick="toggleTopic"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/movies_off"
+                    android:tag="movies" />
             </TableRow>
 
             <TableRow>
 
-                <ToggleButton
-                    android:id="@+id/topic4"
+                <ImageButton
+                    android:id="@+id/topic_series"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:textOff="@string/DIY"
-                    android:textOn="@string/DIY" />
+                    android:background="#00000000"
+                    android:onClick="toggleTopic"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/series_off"
+                    android:tag="series" />
 
-                <ToggleButton
-                    android:id="@+id/topic5"
+                <ImageButton
+                    android:id="@+id/topic_clothes"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:textOff="@string/History"
-                    android:textOn="@string/History" />
+                    android:background="#00000000"
+                    android:onClick="toggleTopic"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/clothes_off"
+                    android:tag="clothes" />
 
-                <ToggleButton
-                    android:id="@+id/topic6"
+                <ImageButton
+                    android:id="@+id/topic_news"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:textOff="@string/Culture"
-                    android:textOn="@string/Culture" />
+                    android:background="#00000000"
+                    android:onClick="toggleTopic"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/news_off"
+                    android:tag="news" />
             </TableRow>
 
             <TableRow>
 
-                <ToggleButton
-                    android:id="@+id/topic7"
+                <ImageButton
+                    android:id="@+id/topic_art"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:textOff="@string/Movies"
-                    android:textOn="@string/Movies" />
+                    android:background="#00000000"
+                    android:onClick="toggleTopic"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/art_off"
+                    android:tag="art" />
 
-                <ToggleButton
-                    android:id="@+id/topic8"
+                <ImageButton
+                    android:id="@+id/topic_kids"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:textOff="@string/Series"
-                    android:textOn="@string/Series" />
+                    android:background="#00000000"
+                    android:onClick="toggleTopic"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/kids_off"
+                    android:tag="kids" />
 
-                <ToggleButton
-                    android:id="@+id/topic9"
+                <ImageButton
+                    android:id="@+id/topic_tech"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:textOff="@string/Clothes"
-                    android:textOn="@string/Clothes" />
+                    android:background="#00000000"
+                    android:onClick="toggleTopic"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/tech_off"
+                    android:tag="tech" />
             </TableRow>
 
         </TableLayout>
 
-        <Button
+        <ImageButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/loginSubmit" />
+            android:background="#00000000"
+            android:onClick="submitNewUser"
+            android:scaleType="centerInside"
+            android:src="@drawable/submit2" />
     </LinearLayout>
 
 </ScrollView>

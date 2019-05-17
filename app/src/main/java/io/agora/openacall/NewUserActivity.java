@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.ToggleButton;
+import io.agora.openacall.Login;
+
+import com.google.android.gms.common.util.ArrayUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,14 +20,12 @@ import java.util.Objects;
 public class NewUserActivity extends AppCompatActivity {
     boolean male = true;
     String[] topics = new String[]{"art", "clothes", "kids", "movies", "music", "news", "series", "sport", "tech"};
+    boolean[] markedTopics = new boolean[9];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_user);
-        for (String topic : topics){
-
-        }
     }
 
     public void toggleMaleFemale(View view) {
@@ -41,27 +42,39 @@ public class NewUserActivity extends AppCompatActivity {
         }
     }
 
+    public void toggleTopic(View view) {
+        String topic = view.getTag().toString();
+        for (int i = 0; i < topics.length; i++) {
+            if (topics[i].equals(topic)) {
+                markedTopics[i] = !markedTopics[i];
+                if (markedTopics[i]) {
+                    int resId = getResources().getIdentifier("io.agora.openacall:drawable/" + topic + "_on", null, null);
+                    ((ImageButton) view).setImageResource(resId);
+                } else {
+                    int resId = getResources().getIdentifier("io.agora.openacall:drawable/" + topic + "_off", null, null);
+                    ((ImageButton) view).setImageResource(resId);
+                }
+                break;
+            }
+        }
+    }
+
     public void submitNewUser(View view) {
         Intent intent = getIntent();
-        String id = Objects.requireNonNull(intent.getExtras()).getString("ID");
-        String mail = Objects.requireNonNull(intent.getExtras()).getString("MAIL");
+        String id = Objects.requireNonNull(intent.getExtras()).getString("USER");
         String name = getPackageName();
         JSONObject profile = new JSONObject();
-        JSONObject topics = new JSONObject();
+        JSONObject data = new JSONObject();
+        JSONObject obj = new JSONObject();
 
-        try {
-            profile.put("id", id);
-            profile.put("mail", mail);
-        } catch (JSONException e) {
-            Log.d("JSONException", "id - " + e.getMessage());
-        }
 
-        for (int i = 1; i <= 18; i++) {
-            ToggleButton TB = (ToggleButton) findViewById(getResources().getIdentifier("topic" + i, "id", name));
-            boolean isChecked = TB.isChecked();
-            String topic = TB.getTextOn().toString();
+        for (int i=0;i<topics.length;i++) {
+            String buttonName = topics[i];
+            boolean isChecked = markedTopics[i];
+            ImageButton TB = findViewById(getResources().getIdentifier("topic_" + buttonName, "id", name));
+            String topic = TB.getTag().toString();
             try {
-                topics.put(topic, Boolean.toString(isChecked));
+                profile.put("\""+topic+"\"", isChecked ? 1 : 0);
             } catch (JSONException e) {
                 Log.d("JSONException", "topic:" + topic + " - " + e.getMessage());
             }
@@ -70,11 +83,31 @@ public class NewUserActivity extends AppCompatActivity {
         String age = ((Spinner) findViewById(R.id.ageSpinner)).getSelectedItem().toString();
 
         try {
-            profile.put("id", id);
-            profile.put("mail", mail);
-            profile.put("age", age);
+            data.put("\"profile\"", profile);
         } catch (JSONException e) {
             Log.d("JSONException", "id - " + e.getMessage());
         }
+        try {
+            obj.put(id, data);
+        } catch (JSONException e) {
+            Log.d("JSONException", "id - " + e.getMessage());
+        }
+        final String postData = obj.toString();
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Login.serverCreate(postData);
+            }
+        });
+        t.start();
+        try {
+            t.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        Intent newI = new Intent(getBaseContext(), MenuActivity.class);
+        newI.putExtra("ID", id);
+        startActivity(newI);
     }
 }
