@@ -2,6 +2,7 @@ package io.agora.openacall.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -9,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+
 import io.agora.openacall.R;
 import io.agora.openacall.model.ConstantApp;
 
@@ -17,8 +19,19 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    }
 
+    }
+    void makeCall(){
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent i = new Intent(MainActivity.this, ChatActivity.class);
+                startActivity(i);
+            }
+        }, 2000);
+    }
     @Override
     protected void initUIandEvent() {
         EditText v_channel = (EditText) findViewById(R.id.channel_name);
@@ -66,8 +79,9 @@ public class MainActivity extends BaseActivity {
     }
 
     public void forwardToRoom() {
-        EditText v_channel = (EditText) findViewById(R.id.channel_name);
-        String channel = v_channel.getText().toString();
+//        EditText v_channel = (EditText) findViewById(R.id.channel_name);
+//        String channel = v_channel.getText().toString();
+        String channel = "pooping";
         vSettings().mChannelName = channel;
 
         Intent i = new Intent(MainActivity.this, ChatActivity.class);
