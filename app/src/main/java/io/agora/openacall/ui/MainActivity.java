@@ -145,7 +145,7 @@ public class MainActivity extends BaseActivity {
 
     }
 
-    private static String baseURL = "http://172.29.110.231:5005/";
+    private static String baseURL = "http://192.168.43.150:5005/";
     private static String get_match = "get_match";
 
     public static String serverGetMatch(String content) {

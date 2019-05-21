@@ -36,7 +36,7 @@ import io.agora.openacall.ui.MainActivity;
 public class Login extends AppCompatActivity {
     static String TAG = "LOGIN";
     private FirebaseAuth mAuth;
-    private static String baseURL = "http://172.29.110.231:5005/";
+    private static String baseURL = "http://192.168.43.150:5005/";
     private static String create_user = "create_user";
     private boolean isFlaskNewUser;
 
